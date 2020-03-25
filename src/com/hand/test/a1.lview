@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Author: firefly  
+    Date: 2020/3/25 19:16  
+    Revision: 1.0  
+    Purpose: 
+-->
+<a:screen xmlns:a="http://www.leaf-framework.org/application">
+    <a:init-procedure/>
+    <a:view template="default" package="leaf.ui.std">
+        <div/>
+        <script/>
+        <a:dataSets/>
+        <a:screenBody/>
+    </a:view>
+</a:screen>
