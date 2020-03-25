@@ -34,102 +34,22 @@ public class Example {
 
 	public static void main(String[] args) {
 		// appId
-		String appId = "EUCP-EMY-SMS1-11111";// 请联系销售，或者在页面中 获取
+		String appId = "EUCP-EMY-SMS1-6U9KH";// 请联系销售，或者在页面中 获取
 		// 密钥
-		String secretKey = "1111111111111111";// 请联系销售，或者在页面中 获取
+		String secretKey = "565191";// 请联系销售，或者在页面中 获取
 		// 接口地址
-		String host = "http://emay.com";// 请联系销售获取
+		String host = "http://sdk4report.eucp.b2m.cn:8080/sdk/SDKService?wsdl";// 请联系销售获取
 		// 加密算法
 		String algorithm = "AES/ECB/PKCS5Padding";
 		// 编码
 		String encode = "UTF-8";
 		// 是否压缩
 		boolean isGizp = true;
+		//手机号
+		String mobile = "18037452531";
 
-		// 获取余额
-		getBalance(appId, secretKey, host, algorithm, isGizp, encode);
-		// 获取状态报告
-		getReport(appId, secretKey, host, algorithm, isGizp, encode);
-		// 获取上行
-		getMo(appId, secretKey, host, algorithm, isGizp, encode);
 		// 发送单条短信
-		setSingleSms(appId, secretKey, host, algorithm, "【某某公司】您的验证码是123", null, null, "12100000000", isGizp, encode);//短信内容请以商务约定的为准，如果已经在通道端绑定了签名，则无需在这里添加签名
-		// // 发送批次短信[有自定义SMSID]
-		setBatchSms(appId, secretKey, host, algorithm, "【某某公司】您的验证码是123", null,
-				new CustomSmsIdAndMobile[] { new CustomSmsIdAndMobile("1", "12100000000"), new CustomSmsIdAndMobile("2", "12100000000") }, isGizp, encode);
-		// // 发送批次短信[无自定义SMSID]
-		setBatchOnlySms(appId, secretKey, host, algorithm, "【某某公司】您的验证码是123", null, new String[] { "12100000000", "12100000001" }, isGizp, encode);
-		// // 发送个性短信
-		setPersonalitySms(appId, secretKey, host, algorithm, null, new CustomSmsIdAndMobileAndContent[] { new CustomSmsIdAndMobileAndContent("1", "12100000000", "【某某公司】您的验证码是123"),
-				new CustomSmsIdAndMobileAndContent("2", "12100000001", "【某某公司】您的验证码是123") }, isGizp, encode);
-		// // 发送全个性短信
-		setPersonalityAllSms(appId, secretKey, host, algorithm, new PersonalityParams[] { new PersonalityParams("101", "12100000000", "【天气不错0", "01", null),
-				new PersonalityParams("102", "12100000001", "天气不错1", "02", null) }, isGizp, encode);
-	}
-
-	/**
-	 * 获取余额
-	 * 
-	 * @param isGzip
-	 *            是否压缩
-	 */
-	private static void getBalance(String appId, String secretKey, String host, String algorithm, boolean isGzip, String encode) {
-		System.out.println("=============begin getBalance==================");
-		BalanceRequest pamars = new BalanceRequest();
-		ResultModel result = request(appId, secretKey, algorithm, pamars, host + "/inter/getBalance", isGzip, encode);
-		System.out.println("result code :" + result.getCode());
-		if ("SUCCESS".equals(result.getCode())) {
-			BalanceResponse response = JsonHelper.fromJson(BalanceResponse.class, result.getResult());
-			if (response != null) {
-				System.out.println("result data : " + response.getBalance());
-			}
-		}
-		System.out.println("=============end getBalance==================");
-	}
-
-	/**
-	 * 获取状态报告
-	 * 
-	 * @param isGzip
-	 *            是否压缩
-	 */
-	private static void getReport(String appId, String secretKey, String host, String algorithm, boolean isGzip, String encode) {
-		System.out.println("=============begin getReport==================");
-		ReportRequest pamars = new ReportRequest();
-		ResultModel result = request(appId, secretKey, algorithm, pamars, host + "/inter/getReport", isGzip, encode);
-		System.out.println("result code :" + result.getCode());
-		if ("SUCCESS".equals(result.getCode())) {
-			ReportResponse[] response = JsonHelper.fromJson(ReportResponse[].class, result.getResult());
-			if (response != null) {
-				for (ReportResponse d : response) {
-					System.out.println("result data : " + d.getExtendedCode() + "," + d.getMobile() + "," + d.getCustomSmsId() + "," + d.getSmsId() + "," + d.getState() + "," + d.getDesc() + ","
-							+ d.getSubmitTime() + "," + d.getReceiveTime());
-				}
-			}
-		}
-		System.out.println("=============end getReport==================");
-	}
-
-	/**
-	 * 获取上行
-	 * 
-	 * @param isGzip
-	 *            是否压缩
-	 */
-	private static void getMo(String appId, String secretKey, String host, String algorithm, boolean isGzip, String encode) {
-		System.out.println("=============begin getMo==================");
-		MoRequest pamars = new MoRequest();
-		ResultModel result = request(appId, secretKey, algorithm, pamars, host + "/inter/getMo", isGzip, encode);
-		System.out.println("result code :" + result.getCode());
-		if ("SUCCESS".equals(result.getCode())) {
-			MoResponse[] response = JsonHelper.fromJson(MoResponse[].class, result.getResult());
-			if (response != null) {
-				for (MoResponse d : response) {
-					System.out.println("result data:" + d.getContent() + "," + d.getExtendedCode() + "," + d.getMobile() + "," + d.getMoTime());
-				}
-			}
-		}
-		System.out.println("=============end getMo==================");
+		setSingleSms(appId, secretKey, host, algorithm, "【中远海运租赁】新接口，短信发送测试。", null, null, mobile, isGizp, encode);//短信内容请以商务约定的为准，如果已经在通道端绑定了签名，则无需在这里添加签名
 	}
 
 	/**
@@ -145,114 +65,16 @@ public class Example {
 		pamars.setCustomSmsId(customSmsId);
 		pamars.setExtendedCode(extendCode);
 		pamars.setMobile(mobile);
-		ResultModel result = request(appId, secretKey, algorithm, pamars, host + "/inter/sendSingleSMS", isGzip, encode);
+		ResultModel result = request(appId, secretKey, algorithm, pamars, host, isGzip, encode);
 		System.out.println("result code :" + result.getCode());
 		if ("SUCCESS".equals(result.getCode())) {
 			SmsResponse response = JsonHelper.fromJson(SmsResponse.class, result.getResult());
 			if (response != null) {
 				System.out.println("data : " + response.getMobile() + "," + response.getSmsId() + "," + response.getCustomSmsId());
+				System.out.println(response);
 			}
 		}
 		System.out.println("=============end setSingleSms==================");
-	}
-
-	/**
-	 * 发送批次短信
-	 * 
-	 * @param isGzip
-	 *            是否压缩
-	 */
-	private static void setBatchOnlySms(String appId, String secretKey, String host, String algorithm, String content, String extendCode, String[] mobiles, boolean isGzip, String encode) {
-		System.out.println("=============begin setBatchOnlySms==================");
-		SmsBatchOnlyRequest pamars = new SmsBatchOnlyRequest();
-		pamars.setMobiles(mobiles);
-		pamars.setExtendedCode(extendCode);
-		pamars.setContent(content);
-		ResultModel result = request(appId, secretKey, algorithm, pamars, host + "/inter/sendBatchOnlySMS", isGzip, encode);
-		System.out.println("result code :" + result.getCode());
-		if ("SUCCESS".equals(result.getCode())) {
-			SmsResponse[] response = JsonHelper.fromJson(SmsResponse[].class, result.getResult());
-			if (response != null) {
-				for (SmsResponse d : response) {
-					System.out.println("data:" + d.getMobile() + "," + d.getSmsId() + "," + d.getCustomSmsId());
-				}
-			}
-		}
-		System.out.println("=============end setBatchOnlySms==================");
-	}
-
-	/**
-	 * 发送批次短信
-	 * 
-	 * @param isGzip
-	 *            是否压缩
-	 */
-	private static void setBatchSms(String appId, String secretKey, String host, String algorithm, String content, String extendCode, CustomSmsIdAndMobile[] customSmsIdAndMobiles, boolean isGzip,
-			String encode) {
-		System.out.println("=============begin setBatchSms==================");
-		SmsBatchRequest pamars = new SmsBatchRequest();
-		pamars.setSmses(customSmsIdAndMobiles);
-		pamars.setExtendedCode(extendCode);
-		pamars.setContent(content);
-		ResultModel result = request(appId, secretKey, algorithm, pamars, host + "/inter/sendBatchSMS", isGzip, encode);
-		System.out.println("result code :" + result.getCode());
-		if ("SUCCESS".equals(result.getCode())) {
-			SmsResponse[] response = JsonHelper.fromJson(SmsResponse[].class, result.getResult());
-			if (response != null) {
-				for (SmsResponse d : response) {
-					System.out.println("data:" + d.getMobile() + "," + d.getSmsId() + "," + d.getCustomSmsId());
-				}
-			}
-		}
-		System.out.println("=============end setBatchSms==================");
-	}
-
-	/**
-	 * 发送个性短信
-	 * 
-	 * @param isGzip
-	 *            是否压缩
-	 */
-	private static void setPersonalitySms(String appId, String secretKey, String host, String algorithm, String extendCode, CustomSmsIdAndMobileAndContent[] customSmsIdAndMobileAndContents,
-			boolean isGzip, String encode) {
-		System.out.println("=============begin setPersonalitySms==================");
-		SmsPersonalityRequest pamars = new SmsPersonalityRequest();
-		pamars.setSmses(customSmsIdAndMobileAndContents);
-		pamars.setExtendedCode(extendCode);
-		ResultModel result = request(appId, secretKey, algorithm, pamars, host + "/inter/sendPersonalitySMS", isGzip, encode);
-		System.out.println("result code :" + result.getCode());
-		if ("SUCCESS".equals(result.getCode())) {
-			SmsResponse[] response = JsonHelper.fromJson(SmsResponse[].class, result.getResult());
-			if (response != null) {
-				for (SmsResponse d : response) {
-					System.out.println("data:" + d.getMobile() + "," + d.getSmsId() + "," + d.getCustomSmsId());
-				}
-			}
-		}
-		System.out.println("=============end setPersonalitySms==================");
-	}
-
-	/**
-	 * 发送个性短信
-	 * 
-	 * @param isGzip
-	 *            是否压缩
-	 */
-	private static void setPersonalityAllSms(String appId, String secretKey, String host, String algorithm, PersonalityParams[] customSmsIdAndMobileAndContents, boolean isGzip, String encode) {
-		System.out.println("=============begin setPersonalityAllSms==================");
-		SmsPersonalityAllRequest pamars = new SmsPersonalityAllRequest();
-		pamars.setSmses(customSmsIdAndMobileAndContents);
-		ResultModel result = request(appId, secretKey, algorithm, pamars, host + "/inter/sendPersonalityAllSMS", isGzip, encode);
-		System.out.println("result code :" + result.getCode());
-		if ("SUCCESS".equals(result.getCode())) {
-			SmsResponse[] response = JsonHelper.fromJson(SmsResponse[].class, result.getResult());
-			if (response != null) {
-				for (SmsResponse d : response) {
-					System.out.println("data:" + d.getMobile() + "," + d.getSmsId() + "," + d.getCustomSmsId());
-				}
-			}
-		}
-		System.out.println("=============end setPersonalityAllSms==================");
 	}
 
 	/**
