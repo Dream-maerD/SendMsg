@@ -1,7 +1,1 @@
 How are you!
-<<<<<<< HEAD
-test
-=======
-2
-3
->>>>>>> master
